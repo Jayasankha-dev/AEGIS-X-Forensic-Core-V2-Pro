@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="AEGIS-X Forensic Core — Windows defensive cybersecurity and digital forensics toolkit.">
+<meta name="theme-color" content="#050914">
+<title>AEGIS-X Forensic Core</title>
+<style>
+:root{--bg:#050914;--panel:rgba(9,19,34,.82);--line:rgba(72,220,255,.2);--text:#edf7ff;--muted:#8ea5b9;--cyan:#48dcff;--blue:#607cff;--green:#62f5b0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 15% 10%,rgba(55,110,255,.16),transparent 30%),radial-gradient(circle at 85% 20%,rgba(0,224,255,.1),transparent 28%),var(--bg);color:var(--text);font-family:Inter,"Segoe UI",Arial,sans-serif;overflow-x:hidden}
+#network{position:fixed;inset:0;width:100%;height:100%;z-index:-3;opacity:.72}.scanlines{position:fixed;inset:0;z-index:-2;pointer-events:none;background:repeating-linear-gradient(to bottom,transparent 0,transparent 3px,rgba(255,255,255,.012) 4px)}.noise{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E")}
+a{color:inherit}.container{width:min(1160px,calc(100% - 40px));margin:auto}
+header{position:sticky;top:0;z-index:20;border-bottom:1px solid rgba(255,255,255,.07);background:rgba(5,9,20,.72);backdrop-filter:blur(18px)}.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:25px}.brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:900;letter-spacing:.08em}.brand img{width:40px;height:40px;object-fit:contain;filter:drop-shadow(0 0 14px rgba(72,220,255,.45))}.brand span{font-size:15px}nav{display:flex;gap:22px;color:var(--muted);font-size:13px}nav a{text-decoration:none}nav a:hover{color:var(--cyan)}
+.hero{min-height:760px;display:grid;place-items:center;padding:100px 0 80px}.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:60px}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border:1px solid rgba(98,245,176,.25);background:rgba(98,245,176,.06);border-radius:999px;color:var(--green);font:700 11px/1 Consolas,monospace;letter-spacing:.12em;text-transform:uppercase}.pulse{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green);animation:pulse 1.6s infinite}@keyframes pulse{50%{transform:scale(1.8);opacity:.45}}
+h1{margin:18px 0 16px;font-size:clamp(48px,7vw,86px);line-height:.92;letter-spacing:-.055em}h1 .accent{background:linear-gradient(100deg,#fff,var(--cyan),#7b8cff);-webkit-background-clip:text;background-clip:text;color:transparent}.hero-copy{max-width:650px;color:var(--muted);font-size:17px;line-height:1.75}.hero-copy strong{color:#dff8ff}.buttons{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:0 19px;border-radius:11px;text-decoration:none;font-weight:800;font-size:13px;border:1px solid var(--line);transition:.2s}.btn:hover{transform:translateY(-3px);border-color:rgba(72,220,255,.55)}.btn-primary{color:#021018;background:linear-gradient(110deg,var(--cyan),#74f0d0);box-shadow:0 0 30px rgba(72,220,255,.2)}.btn-secondary{background:rgba(255,255,255,.045)}
+.hero-terminal{border:1px solid rgba(72,220,255,.23);border-radius:20px;background:linear-gradient(145deg,rgba(12,24,43,.92),rgba(5,11,22,.86));box-shadow:0 25px 80px rgba(0,0,0,.42),0 0 50px rgba(72,220,255,.08);overflow:hidden;transform:perspective(1000px) rotateY(-3deg) rotateX(1deg)}.terminal-bar{display:flex;align-items:center;gap:7px;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,.07);color:#71879b;font:11px Consolas,monospace}.dot{width:8px;height:8px;border-radius:50%;background:#465a6b}.dot.active{background:var(--green);box-shadow:0 0 9px var(--green)}.terminal-body{min-height:390px;padding:22px;font:12px/1.75 Consolas,"Courier New",monospace;color:#a9c4d6}.cyan{color:var(--cyan)}.green{color:var(--green)}.white{color:#fff}.cursor{display:inline-block;width:7px;height:14px;vertical-align:-2px;background:var(--cyan);animation:blink .8s steps(1) infinite}@keyframes blink{50%{opacity:0}}
+section{padding:100px 0}.section-title{max-width:720px;margin-bottom:40px}.section-title small{color:var(--cyan);font:800 11px Consolas,monospace;letter-spacing:.16em;text-transform:uppercase}.section-title h2{margin:10px 0;font-size:clamp(32px,5vw,52px);letter-spacing:-.04em}.section-title p{margin:0;color:var(--muted);line-height:1.7}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.feature{min-height:190px;padding:22px;border:1px solid rgba(255,255,255,.08);border-radius:17px;background:linear-gradient(145deg,rgba(17,31,51,.68),rgba(7,14,26,.65));transition:.25s}.feature:hover{transform:translateY(-5px);border-color:rgba(72,220,255,.3);box-shadow:0 18px 45px rgba(0,0,0,.25)}.feature-icon{font-size:23px;margin-bottom:18px}.feature h3{margin:0 0 8px;font-size:16px}.feature p{margin:0;color:var(--muted);font-size:13px;line-height:1.65}
+.showcase{display:grid;grid-template-columns:1.1fr .9fr;gap:25px;align-items:center}.capture{width:100%;display:block;border-radius:18px;border:1px solid rgba(72,220,255,.2);box-shadow:0 25px 80px rgba(0,0,0,.42);background:#080e18}.status-panel{padding:28px;border-radius:18px;border:1px solid rgba(98,245,176,.16);background:rgba(11,24,35,.72)}.status-row{display:flex;justify-content:space-between;gap:20px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.06);font:12px Consolas,monospace}.status-row:last-child{border-bottom:0}.ok{color:var(--green)}
+.download{text-align:center;padding:90px 20px;border-top:1px solid rgba(255,255,255,.06)}.download-card{width:min(850px,100%);margin:auto;padding:55px 30px;border:1px solid rgba(72,220,255,.24);border-radius:24px;background:radial-gradient(circle at 50% 0%,rgba(72,220,255,.13),transparent 50%),rgba(10,19,34,.78);box-shadow:0 25px 80px rgba(0,0,0,.42)}.download-card h2{margin:0 0 12px;font-size:38px}.download-card p{color:var(--muted);line-height:1.7}.version{display:inline-block;margin-bottom:14px;padding:6px 10px;border-radius:999px;color:var(--cyan);background:rgba(72,220,255,.08);border:1px solid rgba(72,220,255,.18);font:700 11px Consolas,monospace}
+footer{padding:30px 0 45px;border-top:1px solid rgba(255,255,255,.06);color:#647a8e;font-size:12px;text-align:center}footer a{color:var(--cyan);text-decoration:none}
+@media(max-width:900px){.hero-grid,.showcase{grid-template-columns:1fr}.hero{padding-top:65px}.hero-terminal{transform:none}.features{grid-template-columns:repeat(2,1fr)}nav{display:none}}@media(max-width:560px){.container{width:min(100% - 24px,1160px)}.features{grid-template-columns:1fr}.hero{min-height:auto}.terminal-body{min-height:330px;font-size:10px}h1{font-size:52px}}
+</style>
+</head>
+<body>
+<canvas id="network"></canvas><div class="scanlines"></div><div class="noise"></div>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="#"><img src="logo.png" alt="AEGIS-X logo"><span>AEGIS-X FORENSIC CORE</span></a>
+    <nav>
+      <a href="#features">Capabilities</a><a href="#showcase">Interface</a><a href="#download">Download</a>
+      <a href="https://github.com/Jayasankha-dev" target="_blank" rel="noopener">GitHub ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow"><span class="pulse"></span>Defensive Security / Forensics</div>
+      <h1>Investigate.<br><span class="accent">Analyze.</span><br>Defend.</h1>
+      <p class="hero-copy"><strong>AEGIS-X Forensic Core</strong> is a Windows-focused defensive cybersecurity and digital-forensics toolkit built for system triage, network intelligence, persistence analysis, evidence collection and incident investigation.</p>
+      <div class="buttons">
+        <a class="btn btn-primary" href="https://github.com/Jayasankha-dev/AEGIS-X-Forensic-Core-V2-Pro/releases/download/Aeigis-x/AEGIS-X.Pro.exe">⬇ Download AEGIS-X Pro</a>
+        <a class="btn btn-secondary" href="https://github.com/Jayasankha-dev/AEGIS-X-Forensic-Core-V2-Pro" target="_blank" rel="noopener">View Project ↗</a>
+      </div>
+    </div>
+
+    <div class="hero-terminal">
+      <div class="terminal-bar"><span class="dot active"></span><span class="dot"></span><span class="dot"></span><span style="margin-left:6px">AEGIS-X PRO / FORENSIC CORE</span></div>
+      <div class="terminal-body">
+        <div class="cyan">AEGIS-X PRO FORENSIC CORE</div>
+        <div>DEFENSIVE SECURITY • FORENSICS • INCIDENT TRIAGE</div><br>
+        <div class="white">[ SYSTEM ]</div><div>Host ............... DESKTOP-WINDOWS</div><div>User ............... ANALYST</div><div>Session ............ ACTIVE</div><br>
+        <div class="cyan">[ NETWORK INTELLIGENCE ]</div><div>Collecting connections...</div><div class="green">[OK] Established connections analyzed</div><div class="green">[OK] Listening ports mapped</div><div class="green">[OK] DNS cache collected</div><div class="green">[OK] ARP neighbors collected</div><br>
+        <div class="cyan">[ FORENSIC ANALYSIS ]</div><div>Checking processes...</div><div>Reviewing persistence...</div><div>Correlating indicators...</div><div class="green">[OK] Evidence correlation complete</div><br>
+        <div class="white">AEGIS-X# <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+<div class="container">
+  <div class="section-title"><small>Security capabilities</small><h2>A forensic toolkit built around visibility.</h2><p>AEGIS-X brings common defensive investigation tasks into one focused Windows terminal workflow.</p></div>
+  <div class="features">
+    <article class="feature"><div class="feature-icon">⌁</div><h3>Network Intelligence</h3><p>Inspect established connections, listening ports, DNS cache, ARP neighbors, routing information and IP enrichment.</p></article>
+    <article class="feature"><div class="feature-icon">◈</div><h3>Process Forensics</h3><p>Review running processes, executable paths and relationships to help identify unusual host activity.</p></article>
+    <article class="feature"><div class="feature-icon">⛨</div><h3>Persistence Hunt</h3><p>Investigate common Windows persistence locations and prioritize artifacts that require analyst review.</p></article>
+    <article class="feature"><div class="feature-icon">#</div><h3>IOC & Hash Analysis</h3><p>Generate file hashes and organize indicators for defensive investigation and evidence comparison.</p></article>
+    <article class="feature"><div class="feature-icon">▤</div><h3>Windows Forensics</h3><p>Collect useful host and event evidence for incident triage and deeper forensic analysis.</p></article>
+    <article class="feature"><div class="feature-icon">⬡</div><h3>Evidence & Reporting</h3><p>Turn collected telemetry into structured evidence and reports that are easier to review and preserve.</p></article>
+  </div>
+</div>
+</section>
+
+<section id="showcase">
+<div class="container">
+  <div class="section-title"><small>Inside the tool</small><h2>See the investigation workflow.</h2><p>The interface is designed to keep the analyst close to the raw evidence while providing structured forensic modules.</p></div>
+  <div class="showcase">
+    <img class="capture" src="capture.jpg" alt="AEGIS-X Forensic Core screenshot" loading="lazy">
+    <div class="status-panel">
+      <div class="status-row"><span>PROCESS TELEMETRY</span><span class="ok">READY</span></div>
+      <div class="status-row"><span>NETWORK ANALYSIS</span><span class="ok">READY</span></div>
+      <div class="status-row"><span>PERSISTENCE HUNT</span><span class="ok">READY</span></div>
+      <div class="status-row"><span>FILE / IOC ANALYSIS</span><span class="ok">READY</span></div>
+      <div class="status-row"><span>EVIDENCE EXPORT</span><span class="ok">READY</span></div>
+      <div class="status-row"><span>INCIDENT TRIAGE</span><span class="ok">READY</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="download" class="download">
+<div class="download-card">
+  <span class="version">AEGIS-X PRO • LATEST BUILD</span>
+  <h2>Ready to investigate?</h2>
+  <p>The original AEGIS-X release had several issues. The newer Pro release fixes known bugs and continues development with improved forensic, network-analysis, evidence and investigation capabilities.</p>
+  <div class="buttons" style="justify-content:center">
+    <a class="btn btn-primary" href="https://github.com/Jayasankha-dev/AEGIS-X-Forensic-Core-V2-Pro/releases/download/Aeigis-x/AEGIS-X.Pro.exe">⬇ Download AEGIS-X Pro</a>
+    <a class="btn btn-secondary" href="https://github.com/Jayasankha-dev/AEGIS-X-Forensic-Core/releases/download/cyber-sec-tool/AEGIS-X.exe">View Old Release</a>
+  </div>
+</div>
+</section>
+</main>
+
+<footer><div class="container">AEGIS-X Forensic Core · Defensive Security & Digital Forensics · <a href="https://github.com/Jayasankha-dev" target="_blank" rel="noopener">Jayasankha-dev</a></div></footer>
+
+<script>
+const canvas=document.getElementById("network"),ctx=canvas.getContext("2d");let w=0,h=0,nodes=[];
+function resize(){const d=Math.min(devicePixelRatio||1,2);w=innerWidth;h=innerHeight;canvas.width=w*d;canvas.height=h*d;canvas.style.width=w+"px";canvas.style.height=h+"px";ctx.setTransform(d,0,0,d,0,0);const count=Math.min(95,Math.max(42,Math.floor(w/16)));nodes=Array.from({length:count},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,r:Math.random()*1.6+.7}));}
+function draw(){ctx.clearRect(0,0,w,h);for(const a of nodes){a.x+=a.vx;a.y+=a.vy;if(a.x<-20||a.x>w+20)a.vx*=-1;if(a.y<-20||a.y>h+20)a.vy*=-1}
+for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){const a=nodes[i],b=nodes[j],dx=a.x-b.x,dy=a.y-b.y,dist=Math.hypot(dx,dy);if(dist<145){ctx.strokeStyle=`rgba(72,220,255,${(1-dist/145)*.22})`;ctx.lineWidth=.7;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}
+for(const a of nodes){ctx.fillStyle="rgba(72,220,255,.72)";ctx.shadowBlur=9;ctx.shadowColor="rgba(72,220,255,.7)";ctx.beginPath();ctx.arc(a.x,a.y,a.r,0,Math.PI*2);ctx.fill()}ctx.shadowBlur=0;requestAnimationFrame(draw)}
+addEventListener("resize",resize);resize();draw();
+</script>
+</body>
+</html>
