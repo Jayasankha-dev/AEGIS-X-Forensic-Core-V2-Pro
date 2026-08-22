@@ -1,0 +1,1 @@
+ Get-ChildItem -Path Cert:\LocalMachine\Root | Select-Object Subject, Issuer, NotAfter, Thumbprint
